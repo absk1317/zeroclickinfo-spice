@@ -348,6 +348,14 @@
         updateTempSwitch(uom);
     }
 
+    // If there is celsius or fahrenheit mentioned in the query, do use that
+    // unit of measurement instead of the default.
+    var uom_in_query = DDG.get_query().match(/\b(celsius|fahrenheit)\b/);
+    if (uom_in_query) {
+      uom = (uom_in_query[1] === 'celsius') ? 'C' : 'F';
+      updateUnitOfMeasure();
+    }
+
     //when we press the small button, switch the temperature units
     $('#fe_temp_switch').click( function() {
         uom = uom === 'F' ? 'C' : 'F';
